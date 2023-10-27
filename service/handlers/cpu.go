@@ -5,7 +5,7 @@ import "github.com/gin-gonic/gin"
 func (handler Handler) Cpu(c *gin.Context) {
 	cpu, modelErr := handler.models.Cpu()
 	if modelErr != nil {
-		raiseInternalError("user login has failed", modelErr)
+		raiseInternalError("failed to handle cpu request", modelErr)
 		writeErrorOnResponse(modelErr, c)
 		return
 	}

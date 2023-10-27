@@ -12,4 +12,5 @@ func loadRoutes(r *gin.Engine, app service.Application) {
 	}
 	r.Use(cors.New(corsConfig))
 	r.GET("/cpu", app.Routes.Cpu)
+	r.GET("/text", app.Routes.Text)
 }

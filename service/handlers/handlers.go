@@ -12,6 +12,7 @@ type Handler struct {
 
 type Models interface {
 	Cpu() (string, *models.Error)
+	Text() (string, *models.Error)
 }
 
 func New(models Models) Handler {

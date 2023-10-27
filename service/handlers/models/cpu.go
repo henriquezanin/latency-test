@@ -4,9 +4,7 @@ import (
 	"TCC2/utils/logger"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-sysinfo"
 	"github.com/elastic/go-sysinfo/types"
-	"io/ioutil"
 	"net/http"
 )
 
@@ -48,7 +46,7 @@ func (p Params) Cpu() (string, *Error) {
 		}
 	}
 	data := string(b)
-	infoChainData, err := p.cpuFromRequest("/cpu")
+	infoChainData, err := p.chainRequest("/cpu")
 	if err != nil {
 		return "", &Error{
 			InternalErr:      fmt.Errorf("request data from service: %v", err),
@@ -57,19 +55,4 @@ func (p Params) Cpu() (string, *Error) {
 		}
 	}
 	return data + "\n" + infoChainData, nil
-}
-
-func (p Params) cpuFromRequest(path string) (string, error) {
-	if p.ServiceChainURL == "" {
-		return "", nil
-	}
-	response, err := http.Get(p.ServiceChainURL + path)
-	if err != nil {
-		return "", fmt.Errorf("failed to get http content: %v", err)
-	}
-	responseData, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		return "", fmt.Errorf("failed to read response body: %v", err)
-	}
-	return string(responseData), nil
 }
