@@ -4,6 +4,7 @@ import (
 	"TCC2/utils/logger"
 	"encoding/json"
 	"fmt"
+	"github.com/elastic/go-sysinfo"
 	"github.com/elastic/go-sysinfo/types"
 	"net/http"
 )

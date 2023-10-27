@@ -1,8 +1,8 @@
 package models
 
 import (
+	"TCC2/utils/logger"
 	"fmt"
-	"github.com/Project-Retina/utils/logger"
 	"net/http"
 )
 
