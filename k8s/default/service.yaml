@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "latency-test-1"
+  labels:
+    app: latency-test-1
+    system: example
+spec:
+  selector:
+    app: "latency-test-1"
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      name: http-alt
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "latency-test-2"
+  labels:
+    app: latency-test-2
+    system: example
+spec:
+  selector:
+    app: "latency-test-2"
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      name: http-alt
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "latency-test-3"
+  labels:
+    app: latency-test-3
+    system: example
+spec:
+  selector:
+    app: "latency-test-3"
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      name: http-alt
+      targetPort: 8080
+  type: ClusterIP

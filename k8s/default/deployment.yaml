@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: latency-test-1
+  name: latency-test-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: latency-test-1
+  template:
+    metadata:
+      labels:
+        app: latency-test-1
+        system: example
+        version: v1
+    spec:
+      containers:
+      - image: latency-test
+        imagePullPolicy: Never
+        command: ["./main"]
+        args: ["-addr", "0.0.0.0", "-chain", "http://latency-test-2:8080"]
+        name: latency-test-1
+        ports:
+        - containerPort: 8080
+        env:
+          - name: SV_ADDR
+            value: "0.0.0.0"
+          - name: SV_PORT
+            value: "8080"
+          - name: SV_DOMAIN
+            value: "*"
+          - name: SV_PRODUCTION
+            value: "false"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: latency-test-2
+  name: latency-test-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: latency-test-2
+  template:
+    metadata:
+      labels:
+        app: latency-test-2
+        system: example
+        version: v1
+    spec:
+      containers:
+      - image: latency-test
+        imagePullPolicy: Never
+        command: ["./main"]
+        args: ["-addr", "0.0.0.0", "-chain", "http://latency-test-3:8080"]
+        name: latency-test-2
+        ports:
+        - containerPort: 8080
+        env:
+          - name: SV_ADDR
+            value: "0.0.0.0"
+          - name: SV_PORT
+            value: "8080"
+          - name: SV_DOMAIN
+            value: "*"
+          - name: SV_PRODUCTION
+            value: "false"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: latency-test-3
+  name: latency-test-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: latency-test-3
+  template:
+    metadata:
+      labels:
+        app: latency-test-3
+        system: example
+        version: v1
+    spec:
+      containers:
+      - image: latency-test
+        imagePullPolicy: Never
+        name: latency-test-3
+        ports:
+        - containerPort: 8080
+        env:
+          - name: SV_ADDR
+            value: "0.0.0.0"
+          - name: SV_PORT
+            value: "8080"
+          - name: SV_DOMAIN
+            value: "*"
+          - name: SV_PRODUCTION
+            value: "false"
